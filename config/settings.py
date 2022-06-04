@@ -41,7 +41,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
-    # 'django_filters',
+    'drf_yasg',
+    'django_filters',
 
 
     'apps.account',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'apps.category',
     'apps.order',
     'apps.product',
+    'apps.review',
 
 ]
 
@@ -151,9 +153,11 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication'
-    ]
-
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 AUTH_USER_MODEL = 'account.CustomUser'
