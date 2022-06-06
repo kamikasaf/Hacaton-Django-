@@ -77,19 +77,14 @@ class CustomUser(AbstractBaseUser):
             Activate your account {activation_url}
         '''
         send_mail('Activate your account', message, 'test@mail.com', [self.email, ])
+    
+    def send_confirm_email(self):
+        activation_url = f'http://127.0.0.1:8000/account/confirm_email/{self.activation_code}'
+        message = f"""
+            COnfirm your email {activation_url}
+        """
+        send_mail('Confirm your account', message, 'test@mail.com', [self.email, ])
 
-def send_new_password(email, new_password):
-    title = "reset your password"
-    message = f"hello it is your new password: {new_password} on email: {email}"
-    from_email = "shop@mail.kg"
-
-    send_mail(
-        title,
-        message,
-        from_email,
-        [email],
-        fail_silently=False
-    )
 
 
 post_save.connect(post_screate_cart_signal, CustomUser)

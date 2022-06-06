@@ -8,4 +8,5 @@ urlpatterns = [
     path('login/', LoginAPIView.as_view()),
     path('logout/', LogoutAPIView.as_view()),
     path("forgot_password/", ForgotPasswordView.as_view()),
+    path('confirm_email/<str:activation_code>/', TakeNewPasswordView.as_view())
 ]

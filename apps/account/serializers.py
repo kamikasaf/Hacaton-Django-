@@ -2,6 +2,8 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from rest_framework.response import Response
+from rest_framework import status
 
 
 from .models import CustomUser
@@ -58,3 +60,10 @@ class ForgotSerializer(serializers.Serializer):
         except CustomUser.DoesNotExist:
             raise serializers.ValidationError('Нет такого email')
         return attrs
+    
+    def save(self):
+        data = self.validated_data
+        user = User.objects.get(**data)
+        user.set_activation_code()
+        user.send_confirm_email()
+

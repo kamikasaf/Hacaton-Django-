@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, get_list_or_404
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
@@ -6,8 +7,11 @@ from rest_framework.authtoken.models import Token
 from rest_framework import status
 from django.http import HttpResponse
 
+
+
+# from .services.utils import confirm_email
 from .serializers import *
-from .models import send_new_password
+
 
 class LoginAPIView(APIView):
 
@@ -53,12 +57,18 @@ class ForgotPasswordView(APIView):
 
     def post(self, request):
         data = request.POST
-        serializer = ForgotSerializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        email = serializer.validated_data.get("email")
-        user: CustomUser = CustomUser.objects.get(email=email)
+        serializer = ForgotSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            message = """
+            confirm your email!
+            """
+            return Response(message)
+
+class TakeNewPasswordView(APIView):
+    def get(self, request, activation_code):
+        user = get_object_or_404(User, activation_code=activation_code)
         new_password=user.password = user.generate_activation_code()
         user.set_password(new_password)
         user.save()
-        send_new_password(email, new_password)
-        return Response(f'message: Your new password send in your {email}', status=status.HTTP_200_OK)
+        return Response(f'Your new password {new_password}')
