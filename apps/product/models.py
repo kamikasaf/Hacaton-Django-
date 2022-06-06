@@ -1,15 +1,15 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+# from django.contrib.auth import get_user_model
+from django.conf import settings
 
 
 from apps.category.models import Category
 
-User = get_user_model()
 
 
 class Product(models.Model):
 
-    author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='products')
+    author = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='products')
     title = models.CharField(max_length=100)
     desc = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)

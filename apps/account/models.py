@@ -1,10 +1,11 @@
 from django.db import models
 
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
-from django.contrib.auth.models import AbstractUser, UserManager
-from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
+from apps.account.services.signals import post_screate_cart_signal
+from django.db.models.signals import post_save
 
+# from apps.cart.models import ShoppingCart
 
 class CustomUserManager(BaseUserManager):
     def _create(self, email, password, name, last_name, **extra_fields):
@@ -79,3 +80,5 @@ class CustomUser(AbstractBaseUser):
         send_mail('Activate your account', message, 'test@mail.com', [self.email, ])
 
 
+
+post_save.connect(post_screate_cart_signal, CustomUser)

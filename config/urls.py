@@ -6,7 +6,8 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework.routers import SimpleRouter
-
+from django.conf.urls.static import static
+from django.conf import settings
 
 from apps.favorite.views import FavoriteVIewSet
 from apps.likes.views import LikesVIewSet
@@ -44,4 +45,7 @@ urlpatterns = [
     path('products/', include('apps.product.urls')),
     path('', include(router.urls)),
     path('', include('apps.favorite.urls')),
+    path('shoppingcart/', include('apps.cart.urls'))
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
