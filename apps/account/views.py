@@ -6,7 +6,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework import status
 from django.http import HttpResponse
 
-from .serializers import UserSerializer, RegistrationSerializer, User
+from .serializers import *
+from .models import send_new_password
 
 class LoginAPIView(APIView):
 
@@ -45,3 +46,19 @@ class ActivationView(APIView):
         user.activation_code=''
         user.save()
         return Response('Your account is successfully activated!')
+
+
+class ForgotPasswordView(APIView):
+
+
+    def post(self, request):
+        data = request.POST
+        serializer = ForgotSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data.get("email")
+        user: CustomUser = CustomUser.objects.get(email=email)
+        new_password=user.password = user.generate_activation_code()
+        user.set_password(new_password)
+        user.save()
+        send_new_password(email, new_password)
+        return Response(f'message: Your new password send in your {email}', status=status.HTTP_200_OK)

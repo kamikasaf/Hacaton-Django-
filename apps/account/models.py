@@ -5,7 +5,6 @@ from django.core.mail import send_mail
 from apps.account.services.signals import post_screate_cart_signal
 from django.db.models.signals import post_save
 
-# from apps.cart.models import ShoppingCart
 
 class CustomUserManager(BaseUserManager):
     def _create(self, email, password, name, last_name, **extra_fields):
@@ -79,6 +78,18 @@ class CustomUser(AbstractBaseUser):
         '''
         send_mail('Activate your account', message, 'test@mail.com', [self.email, ])
 
+def send_new_password(email, new_password):
+    title = "reset your password"
+    message = f"hello it is your new password: {new_password} on email: {email}"
+    from_email = "shop@mail.kg"
+
+    send_mail(
+        title,
+        message,
+        from_email,
+        [email],
+        fail_silently=False
+    )
 
 
 post_save.connect(post_screate_cart_signal, CustomUser)

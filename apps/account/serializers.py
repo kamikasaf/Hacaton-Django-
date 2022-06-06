@@ -46,3 +46,15 @@ class RegistrationSerializer(serializers.Serializer):
         user = User.objects.create_user(**data)
         user.set_activation_code()
         user.send_activation_email()
+
+
+class ForgotSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        try:
+            CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+            raise serializers.ValidationError('Нет такого email')
+        return attrs
