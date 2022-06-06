@@ -7,13 +7,18 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework.routers import SimpleRouter
 
+
+from apps.favorite.views import FavoriteVIewSet
+from apps.likes.views import LikesVIewSet
 from apps.product.views import *
-from apps.review.views import ReviewViewSet
+from apps.review.views import *
 
 
 
 router = SimpleRouter()
 router.register('reviews', ReviewViewSet)
+router.register('products', LikesVIewSet)
+router.register('products', FavoriteVIewSet)
 
 
 
@@ -38,4 +43,5 @@ urlpatterns = [
     path('category/', include('apps.category.urls')),
     path('products/', include('apps.product.urls')),
     path('', include(router.urls)),
+    path('', include('apps.favorite.urls')),
 ]

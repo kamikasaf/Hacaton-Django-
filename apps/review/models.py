@@ -12,6 +12,8 @@ class Review(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
+        verbose_name = "Отзыв   "
+        verbose_name_plural = "Отзывы"
     
     def __str__(self):
         return f'{self.author.email}{self.text}'
