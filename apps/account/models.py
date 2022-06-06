@@ -81,7 +81,7 @@ class CustomUser(AbstractBaseUser):
     def send_confirm_email(self):
         activation_url = f'http://127.0.0.1:8000/account/confirm_email/{self.activation_code}'
         message = f"""
-            COnfirm your email {activation_url}
+            confirm password change: {activation_url}
         """
         send_mail('Confirm your account', message, 'test@mail.com', [self.email, ])
 

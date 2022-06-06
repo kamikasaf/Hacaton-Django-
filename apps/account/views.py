@@ -61,7 +61,7 @@ class ForgotPasswordView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             message = """
-            confirm your email!
+            confirm your email
             """
             return Response(message)
 
@@ -71,4 +71,4 @@ class TakeNewPasswordView(APIView):
         new_password=user.password = user.generate_activation_code()
         user.set_password(new_password)
         user.save()
-        return Response(f'Your new password {new_password}')
+        return Response(f'Your new password: {new_password}')
