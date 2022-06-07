@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 from apps.cart.models import ShoppingCart
@@ -12,7 +13,7 @@ class Order(models.Model):
     shopping_cart = models.ForeignKey(to=ShoppingCart, on_delete=models.PROTECT, related_name='order')
     phone_number = models.CharField(max_length=13)
     address = models.TextField()
-    email = models.EmailField()
+    email = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='order')
     pay_choices = models.CharField(choices=PAY_CHOICES, max_length=15)
     order_comments = models.TextField(blank=True, null=True)
 

@@ -13,6 +13,7 @@ from apps.favorite.views import FavoriteVIewSet
 from apps.likes.views import LikesVIewSet
 from apps.product.views import *
 from apps.review.views import *
+# from apps.order.views import OrderViewSet
 
 
 
@@ -20,6 +21,8 @@ router = SimpleRouter()
 router.register('reviews', ReviewViewSet)
 router.register('products', LikesVIewSet)
 router.register('products', FavoriteVIewSet)
+# router.register('order', OrderViewSet)
+
 
 
 
@@ -45,7 +48,8 @@ urlpatterns = [
     path('products/', include('apps.product.urls')),
     path('', include(router.urls)),
     path('', include('apps.favorite.urls')),
-    path('shoppingcart/', include('apps.cart.urls'))
+    path('shoppingcart/', include('apps.cart.urls')),
+    path('order/', include('apps.order.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

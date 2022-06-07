@@ -30,7 +30,7 @@ class LogoutAPIView(APIView):
         user = request.user
         token = Token.objects.get(user=user)
         token.delete()  
-        return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+        return HttpResponse('goodbye', status=status.HTTP_401_UNAUTHORIZED)
 
 class RegistrationView(APIView):
     def post(self, request):

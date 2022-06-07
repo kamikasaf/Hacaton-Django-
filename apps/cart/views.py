@@ -1,11 +1,14 @@
-from rest_framework.generics import RetrieveAPIView
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+
+
 from apps.cart.models import ShoppingCart, CartItem
 from apps.product.models import Product
-from .serializers import ShoppingCartSerializer, CartItemSerializer
+from .serializers import *
 from rest_framework import status
+from apps.product.permissions import IsAdminOrAuthor
 
 
 class ShoppingCartView(APIView):
@@ -48,3 +51,7 @@ class AddProductInCartView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
