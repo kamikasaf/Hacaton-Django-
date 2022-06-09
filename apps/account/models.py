@@ -1,5 +1,4 @@
 from django.db import models
-
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.core.mail import send_mail
 from apps.account.services.signals import post_screate_cart_signal
@@ -84,6 +83,8 @@ class CustomUser(AbstractBaseUser):
             confirm password change: {activation_url}
         """
         send_mail('Confirm your account', message, 'test@mail.com', [self.email, ])
+
+    
 
 
 

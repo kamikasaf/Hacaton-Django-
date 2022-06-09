@@ -25,10 +25,10 @@ class ListProductVIew(generics.ListAPIView):
     serializer_class = Produclserializers
     permission_classes = (AllowAny, )
     pagination_class = ProductPagination
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ["price", "title", "author", 'category']
     search_fields = ['title', 'price']
-    ordering_fields = ['update_date']
+    order_fields = ['update_date']
 
     
 

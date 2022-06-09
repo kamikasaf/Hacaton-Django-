@@ -22,7 +22,7 @@ class ShoppingCart(models.Model):
 
 class CartItem(models.Model):
 
-    product: Product = models.ForeignKey(to=Product, on_delete=models.CASCADE, null=True, related_name='product_in_cart')
+    product = models.ForeignKey(to=Product, on_delete=models.CASCADE, null=True, related_name='product_in_cart')
     cart_shopping = models.ForeignKey(to=ShoppingCart, on_delete=models.CASCADE, related_name='cart_item')
     quantity = models.PositiveIntegerField(default=1)
 
@@ -31,4 +31,4 @@ class CartItem(models.Model):
 
 
     def __str__(self) -> str:
-        return {self.cart_shopping.author.email}
+        return self.cart_shopping.author.email

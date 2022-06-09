@@ -7,6 +7,6 @@ User = get_user_model()
 
 
 class Favorite(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='favorite')
-    product = models.ForeignKey(to=Product, on_delete=models.CASCADE, related_name='favorite')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorite')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='favorite')
     favorite = models.BooleanField(default=False)
