@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework import generics
 
 from apps.order.serializers import OrderSerializer
@@ -23,7 +23,7 @@ class CreateOrderVIew(generics.CreateAPIView):
 class DestroyOrderVIew(generics.DestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = (IsAdminOrAuthor, )
+    permission_classes = (IsAdminUser, )
 
 
 class RetrieveOrderVIew(generics.RetrieveAPIView):
@@ -35,6 +35,6 @@ class RetrieveOrderVIew(generics.RetrieveAPIView):
 class UpdateOrderVIew(generics.UpdateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = (IsAdminOrAuthor, )
+    permission_classes = (IsAdminUser, )
 
 

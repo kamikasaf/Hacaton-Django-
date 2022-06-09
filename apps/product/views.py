@@ -36,7 +36,7 @@ class ListProductVIew(generics.ListAPIView):
 class CreateProductVIew(generics.CreateAPIView):
     queryset = Product.objects.all()
     serializer_class = Produclserializers
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
 
 

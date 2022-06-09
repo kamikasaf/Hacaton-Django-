@@ -14,8 +14,9 @@ class ReviewViewSet(viewsets.ModelViewSet):
     
     def get_permission(self):
         if self.action=='create':
-            return [IsAuthenticated()]
-        return [IsAdminOrAuthor()]
+            return [IsAdminUser()]
+        else:
+            return [IsAdminOrAuthor()]
 
     def get_serializer_context(self):
         return {'request': self.request}
