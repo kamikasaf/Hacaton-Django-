@@ -8,17 +8,10 @@ from apps.product.permissions import IsAdminOrAuthor
 
 
 
-# class OrderViewSet(ModelViewSet):
-#     queryset = Order.objects.all()
-#     serializer_class = OrderSerializer
-#     permission_classes = (IsAuthenticated,)
-
 class OrderListVIew(generics.ListAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = (IsAuthenticated,)
-
-
 
 
 class CreateOrderVIew(generics.CreateAPIView):
@@ -26,10 +19,12 @@ class CreateOrderVIew(generics.CreateAPIView):
     serializer_class = OrderSerializer
     permission_classes = (IsAdminOrAuthor,)
 
+
 class DestroyOrderVIew(generics.DestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = (IsAdminOrAuthor, )
+
 
 class RetrieveOrderVIew(generics.RetrieveAPIView):
     queryset = Order.objects.all()
@@ -41,3 +36,5 @@ class UpdateOrderVIew(generics.UpdateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = (IsAdminOrAuthor, )
+
+

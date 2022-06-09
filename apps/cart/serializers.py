@@ -1,9 +1,6 @@
-from itertools import product
-from requests import request
 from rest_framework import serializers
 
 from apps.cart.models import CartItem, ShoppingCart
-from apps.product.models import Product
 
 
 class CartItemSerializer(serializers.ModelSerializer):
@@ -25,12 +22,6 @@ class CartItemSerializer(serializers.ModelSerializer):
         except:
             return rep
 
-    # def create(self, validated_data):
-    #     cart = self.context.get("request").user.cart
-    #     product = validated_data.get('product')
-    #     quantity = validated_data.get('quantity')
-    #     return CartItem.objects.create(cart_shopping=cart, product=product, quantity=quantity)
-
 
 class ShoppingCartSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,6 +33,7 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
         try:
             rep['products'] = CartItemSerializer(instance.cart_item.all(), many=True).data
             rep['total_price'] = instance.get_total_all_price()
+            rep['author'] = instance.author.email
             return rep
         except:
             return rep

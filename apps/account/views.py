@@ -66,6 +66,7 @@ class ForgotPasswordView(APIView):
             return Response(message)
 
 class TakeNewPasswordView(APIView):
+    
     def get(self, request, activation_code):
         user = get_object_or_404(User, activation_code=activation_code)
         new_password=user.password = user.generate_activation_code()
